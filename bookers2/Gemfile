@@ -63,3 +63,4 @@ gem 'net-imap'
 gem 'net-pop'
 
 gem 'image_processing', '~> 1.2'
+
