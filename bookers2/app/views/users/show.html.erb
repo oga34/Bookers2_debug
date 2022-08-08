@@ -19,8 +19,8 @@
                 </table>
             
                 <div class="row">
-                    <%= link_to edit_user_path(@user), class:"btn btn-outline-secondary btn-block" do  %>
-                        <i class="fas fa-user-gear fa-w-18" style="color: black;"></i>
+                    <%= link_to edit_user_path(current_user.id), class:"btn btn-outline-secondary btn-block" do  %>
+                        <i class="fas fa-user-cog fa-w-18"></i>
                     <% end %>
                 </div>
             
@@ -34,7 +34,7 @@
                 </ul>
                 <% end %>
                 
-                <%= form_with model:@book, url:'/books', method: :post do |f| %>
+                <%= form_with model:@book, local: true, url:'/books', method: :post do |f| %>
                    <div class="field">
                 <p class="label">Title</p>
                     <%= f.text_field :title %>

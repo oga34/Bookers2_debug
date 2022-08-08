@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_action :ensure_correct_user, only:[:edit, :update]
+  
   def show
     @user = User.find(params[:id])
     @book = Book.new
@@ -12,8 +14,11 @@ class UsersController < ApplicationController
   
   def update
     @user = User.find(params[:id])
-    @user.update(user_params)
-    redirect_to user_path(@user.id)
+    if @user.update(user_params)
+     redirect_to user_path(@user.id), notice: 'You have updated user successfully.'
+    else
+     render :edit
+    end
   end
   
   def create
@@ -23,14 +28,25 @@ class UsersController < ApplicationController
   end
   
   def edit
-    @user = User.find(params[:id])
+    @user = current_user
   end
 
   def index
     @book = Book.new
-    @user = User.new
+    @user = current_user
     @users = User.all
   end
+  
+  def destroy
+      @user = User.find(params[:id]) 
+      @user.destroy
+      flash[:notice] = 'ユーザーを削除しました。'
+      redirect_to :root #削除に成功すればrootページに戻る
+  end
+  
+  def get_profile_image(width,height)
+  end
+  
   
   private
 
@@ -42,4 +58,11 @@ class UsersController < ApplicationController
     params.require(:book).permit(:title, :body)
   end
   
+  def ensure_correct_user
+    @user = User.find(params[:id])
+    unless @user == current_user
+     redirect_to user_path
+    end
+  end
+
 end
