@@ -2,6 +2,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @book = Book.new
+    @books = Book.where(user_id: current_user.id).includes(:user).order("created_at DESC")
   end
   
   def new
@@ -18,7 +19,7 @@ class UsersController < ApplicationController
   def create
     book = book.new(book_params)
     book.save
-    redirect_to books_path
+    redirect_to book_path(book.id)
   end
   
   def edit

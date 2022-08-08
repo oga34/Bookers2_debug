@@ -25,7 +25,7 @@
            <% if user_signed_in? %>
             <li>
              <i class="fas fa-home fa-w-18" style="color: white;"></i>
-             <%= link_to "Home", "/", class: 'navlink text-light pr-3' %>
+             <%= link_to "Home", user_path(current_user.id), class: 'navlink text-light pr-3' %>
             </li>
             <li>
              <i class="fas fa-users fa-w-20" style="color: white;"></i>
@@ -64,6 +64,7 @@
     </header>
     
     <main class="mb-auto">
+    <%= render partial: 'layouts/flash_message' %> 
     <%= yield %>
     </main>
     
