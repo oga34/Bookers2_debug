@@ -1,10 +1,10 @@
 class UsersController < ApplicationController
-  before_action :ensure_correct_user, only:[:edit, :update]
+  before_action :correct_user, only:[:edit, :update]
   
   def show
     @user = User.find(params[:id])
     @book = Book.new
-    @books = Book.where(user_id: current_user.id).includes(:user).order("created_at DESC")
+    @books = Book.where(user_id: @user.id).includes(:user).order("created_at DESC")
   end
   
   def new
@@ -37,17 +37,6 @@ class UsersController < ApplicationController
     @users = User.all
   end
   
-  def destroy
-      @user = User.find(params[:id]) 
-      @user.destroy
-      flash[:notice] = 'ユーザーを削除しました。'
-      redirect_to :root #削除に成功すればrootページに戻る
-  end
-  
-  def get_profile_image(width,height)
-  end
-  
-  
   private
 
   def user_params
@@ -58,11 +47,9 @@ class UsersController < ApplicationController
     params.require(:book).permit(:title, :body)
   end
   
-  def ensure_correct_user
+  def correct_user
     @user = User.find(params[:id])
-    unless @user == current_user
-     redirect_to user_path
-    end
+    redirect_to(user_path(current_user)) unless @user == current_user
   end
 
 end
