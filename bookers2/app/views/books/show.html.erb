@@ -24,20 +24,9 @@
                         <i class="fas fa-user-cog fa-w-18"></i>
                     <% end %>
                 </div>
-            
-                <h2 class="mt-3">New book</h2>
                 
-                <%= form_with model:@book, local: true, url:'/books', method: :post do |f| %>
-                   <div class="field">
-                <p class="label">Title</p>
-                    <%= f.text_field :title %>
-                </div>
-                <div class="field">
-                    <p class="label">Opinion</p>
-                    <%= f.text_area :body %>
-                </div>
-                    <%= f.submit 'Create Book',class: "btn btn-success" %>
-                <% end %>
+             <%= render 'layouts/new_book', book: @new_book %>
+                
             </div>
             
             <div class="col-md-8 offset-md-1">

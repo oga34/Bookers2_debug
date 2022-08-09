@@ -8,8 +8,8 @@ class UsersController < ApplicationController
   end
   
   def new
-    @book=Book.new
-    @books=Book.all
+    @book = Book.new
+    @books = Book.all
   end
   
   def update
