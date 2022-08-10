@@ -7,11 +7,6 @@ class UsersController < ApplicationController
     @books = Book.where(user_id: @user.id).includes(:user).order("created_at DESC")
   end
   
-  def new
-    @book = Book.new
-    @books = Book.all
-  end
-  
   def update
     @user = User.find(params[:id])
     if @user.update(user_params)
@@ -19,12 +14,6 @@ class UsersController < ApplicationController
     else
      render :edit
     end
-  end
-  
-  def create
-    book = book.new(book_params)
-    book.save
-    redirect_to book_path(book.id)
   end
   
   def edit
@@ -41,10 +30,6 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:name, :profile_image, :introduction)
-  end
-  
-  def book_params
-    params.require(:book).permit(:title, :body)
   end
   
   def correct_user
