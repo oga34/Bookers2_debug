@@ -13,4 +13,5 @@ class User < ApplicationRecord
   def get_profile_image(width,height)
     (profile_image.attached?) ? profile_image : 'no_image.jpg'
   end
+  
 end
